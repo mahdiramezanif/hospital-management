@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class Hospital {
     //    Put getters for all variables
+    private String ownerPassword = "1234";
     private ArrayList<Patient> patients;
     private ArrayList<ServiceMen> serviceMens;
     private ArrayList<Doctor> doctors;
