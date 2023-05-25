@@ -3,8 +3,6 @@ public class Personnel extends Person{
     //    Put toString(using Alt+Ins)
     protected String salary;
     protected String WorkExperience;
-    protected int personnelID;
-
 
     public Personnel(String salary, String workExperience,
                      String firstName, String lastName, String age, String nationalID, String gender) {
