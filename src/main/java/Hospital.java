@@ -3,13 +3,13 @@ import java.util.ArrayList;
 public class Hospital {
 //    Implement getDoctorPasswords and getNursePasswords methods
 //    Implement getDoctorByID, getNurseByID, getServiceMenByID and getPatientByNationalID methods
-    private String ownerPassword = "1234";
-    private ArrayList<Patient> patients;
-    private ArrayList<ServiceMen> serviceMens;
-    private ArrayList<Doctor> doctors;
-    private ArrayList<Nurse> nurses;
-    private ArrayList<Visit> visits;
-    public void plus(Object o){
+    private static String ownerPassword = "1234";
+    private static ArrayList<Patient> patients;
+    private static ArrayList<ServiceMen> serviceMens;
+    private static ArrayList<Doctor> doctors;
+    private static ArrayList<Nurse> nurses;
+    private static ArrayList<Visit> visits;
+    public static void plus(Object o){
 //        Takes an object and checks what it is. It belongs to any list, adds to that list
         if (o instanceof Patient) {
             patients.add((Patient) o);
@@ -47,31 +47,31 @@ public class Hospital {
 //        if it is not, it prints the corresponding message and if it is,
 //        it deletes that object from that array list.
     }
-    public String getOwnerPassword() {
+    public static String getOwnerPassword() {
         return ownerPassword;
     }
 
-    public ArrayList<Patient> getPatients() {
+    public static ArrayList<Patient> getPatients() {
         return patients;
     }
 
-    public ArrayList<ServiceMen> getServiceMens() {
+    public static ArrayList<ServiceMen> getServiceMens() {
         return serviceMens;
     }
 
-    public ArrayList<Doctor> getDoctors() {
+    public static ArrayList<Doctor> getDoctors() {
         return doctors;
     }
 
-    public ArrayList<Nurse> getNurses() {
+    public static ArrayList<Nurse> getNurses() {
         return nurses;
     }
 
-    public ArrayList<Visit> getVisits() {
+    public static ArrayList<Visit> getVisits() {
         return visits;
     }
 
-    public void setOwnerPassword(String ownerPassword) {
-        this.ownerPassword = ownerPassword;
+    public static void setOwnerPassword(String ownerPass) {
+        ownerPassword = ownerPass;
     }
 }

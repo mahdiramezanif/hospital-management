@@ -13,23 +13,4 @@ public class Person {
         this.gender = gender;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getAge() {
-        return age;
-    }
-
-    public String getNationalID() {
-        return NationalID;
-    }
-
-    public String getGender() {
-        return gender;
-    }
 }

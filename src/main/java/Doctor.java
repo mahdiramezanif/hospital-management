@@ -6,14 +6,12 @@ public class Doctor extends Personnel {
     //    This is so that the employee knows which hospital he belongs to, so when changing the information
     //    (such as visiting a patient and giving a prescription), he should change the information of the same
   //    hospital.
-    private Hospital hospital;
 
-    public Doctor(String expertise, String password, Hospital hospital, String salary, String workExperience,
+    public Doctor(String expertise, String password,String salary, String workExperience,
                   String firstName, String lastName, String age, String nationalID, String gender) {
         super(salary, workExperience, firstName,lastName,age,nationalID,gender);
         Expertise = expertise;
         this.password = password;
-        this.hospital = hospital;
     }
 
     public String getExpertise() {
@@ -24,14 +22,10 @@ public class Doctor extends Personnel {
         return password;
     }
 
-    public Hospital getHospital() {
-        return hospital;
-    }
-
-    public void checkup(Patient patient, Nurse nurse, String date, String sickness,
-                        String prescription, Hospital hospital) {
-        Visit v = new Visit(this, nurse, patient, date, sickness, prescription);
-        hospital.plus(v);
+    public void checkup(String patientNationalID, String nurseNationalID,
+                        String date, String sickness, String prescription) {
+        Visit v = new Visit(patientNationalID,this.NationalID,nurseNationalID,date,sickness,prescription);
+        Hospital.plus(v);
     }
 
     public void ChangePassword(String pass) {

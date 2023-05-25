@@ -8,34 +8,33 @@ public class Visit {
     private String doctorFirstName;
     private String doctorLastName;
     private String doctorExpertise;
-    private String doctorID;
+    private String doctorNationalID;
     private String nurseFirstName;
     private String nurseLastName;
-    private String nurseID;
+    private String nurseNationalID;
     private String date;
     private String sickness;
     private String prescription; //Explanations about
     // the visit that has been done, including the prescribed medicine, the patient's history, etc.
 
 
-    public Visit(int id, String patientFirstName, String patientLastName,
-                 String patientNationalID, String patientAge, String patientGender,
-                 String doctorFirstName, String doctorLastName, String doctorExpertise,
-                 String doctorID, String nurseFirstName, String nurseLastName, String nurseID,
+    public Visit(String patientNationalID, String doctorNationalID, String nurseNationalID,
                  String date, String sickness, String prescription) {
-        this.id = id;
-        this.patientFirstName = patientFirstName;
-        this.patientLastName = patientLastName;
+        Patient patient = (Patient)Hospital.getByNationalID(patientNationalID);
+        Doctor doctor = (Doctor) Hospital.getByNationalID(doctorNationalID);
+        Nurse nurse = (Nurse) Hospital.getByNationalID(nurseNationalID);
         this.patientNationalID = patientNationalID;
-        this.patientAge = patientAge;
-        this.patientGender = patientGender;
-        this.doctorFirstName = doctorFirstName;
-        this.doctorLastName = doctorLastName;
-        this.doctorExpertise = doctorExpertise;
-        this.doctorID = doctorID;
-        this.nurseFirstName = nurseFirstName;
-        this.nurseLastName = nurseLastName;
-        this.nurseID = nurseID;
+        this.doctorNationalID = doctorNationalID;
+        this.nurseNationalID = nurseNationalID;
+        patientFirstName = patient.firstName;
+        patientLastName = patient.lastName;
+        patientAge = patient.age;
+        patientGender = patient.gender;
+        doctorFirstName = doctor.firstName;
+        doctorLastName = doctor.lastName;
+        doctorExpertise = doctor.getExpertise();
+        nurseFirstName = nurse.firstName;
+        nurseLastName = nurse.lastName;
         this.date = date;
         this.sickness = sickness;
         this.prescription = prescription;
@@ -105,18 +104,16 @@ public class Visit {
         return prescription;
     }
 
-    public Visit(Doctor doctor, Nurse nurse, Patient patient,
-                 String date, String sickness, String prescription) {
-//        Get and set the necessary information of the doctor, nurse and patient that is defined. like this:
-        doctorFirstName = doctor.getFirstName();
-//        Continuation of the constructor:
-        this.date = date;
-        this.sickness = sickness;
-        this.prescription = prescription;
+    public void setId(int ID) {
+        id = ID;
     }
 
-    private void setId(int ID) {
-        id = ID;
+    public String getDoctorNationalID() {
+        return doctorNationalID;
+    }
+
+    public String getNurseNationalID() {
+        return nurseNationalID;
     }
 
     @Override

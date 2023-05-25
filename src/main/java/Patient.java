@@ -17,8 +17,4 @@ public class Patient extends Person{
         //        First of all, call method updateVisits to update the data.
 //        Prints all visits that has this sickness
     }
-    public void addVisit(Visit visit){
-        //        First of all, call method updateVisits to update the data.
-//        Add a visit to this patient's visits
-    }
 }
