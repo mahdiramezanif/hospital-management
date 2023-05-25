@@ -1,7 +1,8 @@
 import java.util.ArrayList;
 
 public class Hospital {
-    //    Put getters for all variables
+//    Implement getDoctorPasswords and getNursePasswords methods
+//    Implement getDoctorByID, getNurseByID, getServiceMenByID and getPatientByNationalID methods
     private String ownerPassword = "1234";
     private ArrayList<Patient> patients;
     private ArrayList<ServiceMen> serviceMens;
@@ -46,5 +47,31 @@ public class Hospital {
 //        if it is not, it prints the corresponding message and if it is,
 //        it deletes that object from that array list.
     }
+    public String getOwnerPassword() {
+        return ownerPassword;
+    }
 
+    public ArrayList<Patient> getPatients() {
+        return patients;
+    }
+
+    public ArrayList<ServiceMen> getServiceMens() {
+        return serviceMens;
+    }
+
+    public ArrayList<Doctor> getDoctors() {
+        return doctors;
+    }
+
+    public ArrayList<Nurse> getNurses() {
+        return nurses;
+    }
+
+    public ArrayList<Visit> getVisits() {
+        return visits;
+    }
+
+    public void setOwnerPassword(String ownerPassword) {
+        this.ownerPassword = ownerPassword;
+    }
 }

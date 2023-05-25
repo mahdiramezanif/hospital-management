@@ -1,3 +1,8 @@
 public class ServiceMen extends Personnel{
-    //    Put Constructor, toString(using Alt+Ins) and getters for all variables
+
+    public ServiceMen(String salary, String workExperience,
+                      String firstName, String lastName, String age, String nationalID, String gender) {
+        super(salary,workExperience,firstName,lastName,age,nationalID,gender);
+    }
+
 }

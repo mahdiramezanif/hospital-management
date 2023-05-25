@@ -1,10 +1,35 @@
 public class Person {
-    //    Put Constructor, toString(using Alt+Ins) and getters for all variables
-//    We try to define the variables as strings, because it is easier to read and write them from the database
-    private String firstName;
-    private String lastName;
-    private String age;
-    private String NationalID;
-    private String gender;
+    protected String firstName;
+    protected String lastName;
+    protected String age;
+    protected String NationalID;
+    protected String gender;
 
+    public Person(String firstName, String lastName, String age, String nationalID, String gender) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        NationalID = nationalID;
+        this.gender = gender;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public String getNationalID() {
+        return NationalID;
+    }
+
+    public String getGender() {
+        return gender;
+    }
 }
