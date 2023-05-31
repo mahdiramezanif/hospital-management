@@ -1,20 +1,33 @@
 import java.util.ArrayList;
 
-public class Patient extends Person{
-    //    Put Constructor, toString(using Alt+Ins) and getters for all variables
-//    This class does not have an setID method
-    private ArrayList<Visit> patientVisits = new ArrayList<>();
+public class Patient extends Person {
+    public ArrayList<Visit> patientVisits = new ArrayList<>();
 
-    public void updateVisits(){
-//Insert all the members of the array list visit from the information class into the
-// array list patientVisits in this class.
+    public Patient(String firstName, String lastName, String age, String nationalID, String gender) {
+        super(firstName, lastName, age, nationalID, gender);
     }
-    public void printAllVisits(){
-//        First of all, call method updateVisits to update the data.
-//        Prints all visits
+
+    @Override
+    public String toString() {
+        return "Patient{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", age='" + age + '\'' +
+                ", NationalID='" + NationalID + '\'' +
+                ", gender='" + gender + '\'' +
+                '}';
     }
-    public void printSicknessVisits(String sickness){
-        //        First of all, call method updateVisits to update the data.
-//        Prints all visits that has this sickness
+
+    public void printAllVisits() {
+        for (Visit v : patientVisits) {
+            System.out.println(v);
+        }
+    }
+
+    public void printSicknessVisits(String sickness) {
+        for (Visit v : patientVisits) {
+            if (v.getSickness().equals(sickness))
+                System.out.println(v);
+        }
     }
 }

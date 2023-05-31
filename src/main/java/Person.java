@@ -4,6 +4,7 @@ public class Person {
     protected String age;
     protected String NationalID;
     protected String gender;
+    protected int id;
 
     public Person(String firstName, String lastName, String age, String nationalID, String gender) {
         this.firstName = firstName;
@@ -13,4 +14,7 @@ public class Person {
         this.gender = gender;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 }

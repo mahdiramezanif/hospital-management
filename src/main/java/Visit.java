@@ -20,7 +20,7 @@ public class Visit {
 
     public Visit(String patientNationalID, String doctorNationalID, String nurseNationalID,
                  String date, String sickness, String prescription) {
-        Patient patient = (Patient)Hospital.getByNationalID(patientNationalID);
+        Patient patient = (Patient) Hospital.getByNationalID(patientNationalID);
         Doctor doctor = (Doctor) Hospital.getByNationalID(doctorNationalID);
         Nurse nurse = (Nurse) Hospital.getByNationalID(nurseNationalID);
         this.patientNationalID = patientNationalID;
@@ -76,20 +76,12 @@ public class Visit {
         return doctorExpertise;
     }
 
-    public String getDoctorID() {
-        return doctorID;
-    }
-
     public String getNurseFirstName() {
         return nurseFirstName;
     }
 
     public String getNurseLastName() {
         return nurseLastName;
-    }
-
-    public String getNurseID() {
-        return nurseID;
     }
 
     public String getDate() {
@@ -128,13 +120,12 @@ public class Visit {
                 ", doctorFirstName='" + doctorFirstName + '\'' +
                 ", doctorLastName='" + doctorLastName + '\'' +
                 ", doctorExpertise='" + doctorExpertise + '\'' +
-                ", doctorID='" + doctorID + '\'' +
                 ", nurseFirstName='" + nurseFirstName + '\'' +
                 ", nurseLastName='" + nurseLastName + '\'' +
-                ", nurseID='" + nurseID + '\'' +
                 ", date='" + date + '\'' +
                 ", sickness='" + sickness + '\'' +
                 ", prescription='" + prescription + '\'' +
                 '}';
     }
+
 }

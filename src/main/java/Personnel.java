@@ -11,15 +11,24 @@ public class Personnel extends Person{
         WorkExperience = workExperience;
     }
 
-    private void setId(int ID) {
-        personnelID = ID;
-    }
     public String getSalary() {
         return salary;
     }
-
     public String getWorkExperience() {
         return WorkExperience;
+    }
+
+    @Override
+    public String toString() {
+        return "Personnel{" +
+                "salary='" + salary + '\'' +
+                ", WorkExperience='" + WorkExperience + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", age='" + age + '\'' +
+                ", NationalID='" + NationalID + '\'' +
+                ", gender='" + gender + '\'' +
+                '}';
     }
 }
 
