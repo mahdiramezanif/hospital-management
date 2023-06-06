@@ -2,8 +2,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Hospital {
-    //    Implement getDoctorPasswords and getNursePasswords methods
-//    Implement getDoctorByID, getNurseByID, getServiceMenByID and getPatientByNationalID methods
     private static String ownerPassword = "1234";
     private static ArrayList<Patient> patients = new ArrayList<>();
     private static ArrayList<ServiceMen> serviceMens = new ArrayList<>();

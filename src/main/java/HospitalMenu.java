@@ -297,6 +297,7 @@ public class HospitalMenu {
                         System.out.println("2. register patient");
                         System.out.println("3. change password");
                         System.out.println("4. delete visit");
+                        System.out.println("5. delete patient");
                         int nurseOption = scannerI.nextInt();
 
                         switch (nurseOption) {
@@ -371,6 +372,23 @@ public class HospitalMenu {
                                 String prescription = scanner.nextLine();
                                 Hospital.delete(new Visit(patientNationalId, doctorNationalId,
                                         currentNurse.NationalID, date, sickness, prescription));
+                                break;
+                            }
+                            case 5: {
+                                boolean correctID = true;
+                                System.out.println("Enter patient's NationalID : ");
+                                String patientNationalId = scanner.nextLine();
+                                Object o = Hospital.getByNationalID(patientNationalId);
+                                if (o == null)
+                                    correctID = false;
+                                while (!correctID) {
+                                    System.out.println("Enter correct patient's NationalID : ");
+                                    patientNationalId = scanner.nextLine();
+                                    o = Hospital.getByNationalID(patientNationalId);
+                                    if (o != null)
+                                        correctID = true;
+                                }
+                                Hospital.delete(o);
                                 break;
                             }
                             default:

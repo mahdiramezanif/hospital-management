@@ -6,25 +6,27 @@ public class Database {
 
     public static void read() {
         try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
             url = "jdbc:mysql://127.0.0.1:3306/Hospital";
 
             Connection conn = DriverManager.getConnection(url, user, password);
-
             Statement stmt = conn.createStatement();
             ResultSet patientRS = stmt.executeQuery("SELECT * FROM patient");
             ResultSet doctorRS = stmt.executeQuery("SELECT * FROM doctor");
             ResultSet nurseRS = stmt.executeQuery("SELECT * FROM nurse");
-            ResultSet serviceMenRS = stmt.executeQuery("SELECT * FROM serviceMen");
+            ResultSet serviceMenRS = stmt.executeQuery("SELECT * FROM servicemen");
             ResultSet visitRS = stmt.executeQuery("SELECT * FROM visit");
 
             while (patientRS.next()) {
                 String firstName = patientRS.getString("firstName");
                 String lastName = patientRS.getString("lastName");
                 String age = patientRS.getString("age");
-                String nationalID = patientRS.getString("NationalID");
+                String nationalID = patientRS.getString("nationalID");
                 String gender = patientRS.getString("gender");
+                int id = patientRS.getInt("id");
 
                 Patient patient = new Patient(firstName, lastName, age, nationalID, gender);
+                patient.setId(id);
                 Hospital.plus(patient);
             }
             while (doctorRS.next()) {
@@ -37,9 +39,11 @@ public class Database {
                 String workExperience = doctorRS.getString("workExperience");
                 String expertise = doctorRS.getString("expertise");
                 String password = doctorRS.getString("password");
+                int id = doctorRS.getInt("id");
 
                 Doctor doctor = new Doctor(expertise,password,salary,workExperience,
                         firstName,lastName,age,nationalID,gender);
+                doctor.setId(id);
                 Hospital.plus(doctor);
             }
             while (nurseRS.next()) {
@@ -51,9 +55,11 @@ public class Database {
                 String salary = nurseRS.getString("salary");
                 String workExperience = nurseRS.getString("workExperience");
                 String password = nurseRS.getString("password");
+                int id = nurseRS.getInt("id");
 
                 Nurse nurse = new Nurse(password,salary,workExperience,firstName,
                         lastName,age,nationalID,gender);
+                nurse.setId(id);
                 Hospital.plus(nurse);
             }
             while (serviceMenRS.next()) {
@@ -64,9 +70,11 @@ public class Database {
                 String gender = serviceMenRS.getString("gender");
                 String salary = serviceMenRS.getString("salary");
                 String workExperience = serviceMenRS.getString("workExperience");
+                int id = serviceMenRS.getInt("id");
 
                 ServiceMen serviceMen = new ServiceMen(salary,workExperience,firstName,lastName,
                         age,nationalID,gender);
+                serviceMen.setId(id);
                 Hospital.plus(serviceMen);
             }
             while (visitRS.next()) {
@@ -75,19 +83,17 @@ public class Database {
                 String nurseNationalID = visitRS.getString("nurseNationalID");
                 String date = visitRS.getString("date");
                 String sickness = visitRS.getString("sickness");
-                String prescription = serviceMenRS.getString("prescription");
-                int id = serviceMenRS.getInt("ID");
+                String prescription = visitRS.getString("prescription");
+                int id = visitRS.getInt("id");
 
                 Visit visit = new Visit(patientNationalID,doctorNationalID,
                         nurseNationalID,date,sickness,prescription);
                 visit.setId(id);
                 Hospital.plus(visit);
             }
-
-
             conn.close();
 
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             System.out.println(e.getMessage());
         }
 
@@ -96,7 +102,9 @@ public class Database {
                 url = "jdbc:mysql://127.0.0.1:3306/Hospital?useSSL=false";
 
                 // Create a connection to the MySQL database
-                try (Connection conn = DriverManager.getConnection(url, user, password)) {
+                try {
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+                    Connection conn = DriverManager.getConnection(url, user, password);
                     Statement stmt = conn.createStatement();
 
                     // Truncate the patient table to remove any existing data
@@ -104,23 +112,24 @@ public class Database {
 
                     // Insert all patients from the array list into the patient table
                     PreparedStatement patientPS = conn.prepareStatement("INSERT INTO patient(firstName," +
-                            " lastName, age, NationalID, gender) VALUES (?, ?, ?, ?, ?)");
+                            " lastName, age, nationalID, gender, id) VALUES (?, ?, ?, ?, ?, ?)");
                     for (Patient p : Hospital.getPatients()) {
                         patientPS.setString(1, p.firstName);
                         patientPS.setString(2, p.lastName);
                         patientPS.setString(3, p.age);
                         patientPS.setString(4, p.NationalID);
                         patientPS.setString(5, p.gender);
+                        patientPS.setInt(6, p.id);
                         patientPS.executeUpdate();
                     }
 
-                    // Truncate the patient table to remove any existing data
+                    // Truncate the doctor table to remove any existing data
                     stmt.executeUpdate("TRUNCATE TABLE doctor");
 
-                    // Insert all patients from the array list into the patient table
+                    // Insert all doctors from the array list into the patient table
                     PreparedStatement doctorPS = conn.prepareStatement("INSERT INTO doctor(firstName," +
-                            " lastName, age, NationalID, gender, salary, workExperience, expertise, password)" +
-                            " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                            " lastName, age, NationalID, gender, salary, workExperience, expertise, password, id)" +
+                            " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                     for (Doctor d : Hospital.getDoctors()) {
                         doctorPS.setString(1, d.firstName);
                         doctorPS.setString(2, d.lastName);
@@ -131,16 +140,17 @@ public class Database {
                         doctorPS.setString(7, d.getWorkExperience());
                         doctorPS.setString(8, d.getExpertise());
                         doctorPS.setString(9, d.getPassword());
+                        doctorPS.setInt(10, d.id);
                         doctorPS.executeUpdate();
                     }
 
-                    // Truncate the patient table to remove any existing data
+                    // Truncate the nurse table to remove any existing data
                     stmt.executeUpdate("TRUNCATE TABLE nurse");
 
-                    // Insert all patients from the array list into the patient table
+                    // Insert all nurses from the array list into the patient table
                     PreparedStatement nursePS = conn.prepareStatement("INSERT INTO nurse(firstName," +
-                            " lastName, age, NationalID, gender, salary, workExperience, password)" +
-                            " VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                            " lastName, age, NationalID, gender, salary, workExperience, password, id)" +
+                            " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
                     for (Nurse n : Hospital.getNurses()) {
                         nursePS.setString(1, n.firstName);
                         nursePS.setString(2, n.lastName);
@@ -150,16 +160,17 @@ public class Database {
                         nursePS.setString(6, n.getSalary());
                         nursePS.setString(7, n.getWorkExperience());
                         nursePS.setString(8, n.getPassword());
+                        nursePS.setInt(9, n.id);
                         nursePS.executeUpdate();
                     }
 
-                    // Truncate the patient table to remove any existing data
-                    stmt.executeUpdate("TRUNCATE TABLE serviceMen");
+                    // Truncate the servicemen table to remove any existing data
+                    stmt.executeUpdate("TRUNCATE TABLE servicemen");
 
-                    // Insert all patients from the array list into the patient table
+                    // Insert all servicemens from the array list into the patient table
                     PreparedStatement serviceMenPS = conn.prepareStatement("INSERT INTO serviceMen" +
-                            "(firstName,lastName, age, NationalID, gender, salary, workExperience)" +
-                            " VALUES (?, ?, ?, ?, ?, ?, ?)");
+                            "(firstName,lastName, age, NationalID, gender, salary, workExperience, id)" +
+                            " VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
                     for (ServiceMen s : Hospital.getServiceMens()) {
                         serviceMenPS.setString(1, s.firstName);
                         serviceMenPS.setString(2, s.lastName);
@@ -168,16 +179,17 @@ public class Database {
                         serviceMenPS.setString(5, s.gender);
                         serviceMenPS.setString(6, s.getSalary());
                         serviceMenPS.setString(7, s.getWorkExperience());
+                        serviceMenPS.setInt(8, s.id);
                         serviceMenPS.executeUpdate();
                     }
 
-                    // Truncate the patient table to remove any existing data
+                    // Truncate the visit table to remove any existing data
                     stmt.executeUpdate("TRUNCATE TABLE visit");
 
-                    // Insert all patients from the array list into the patient table
+                    // Insert all visits from the array list into the patient table
                     PreparedStatement visitPS = conn.prepareStatement("INSERT INTO visit" +
                             "(patientNationalID,doctorNationalID, nurseNationalID, date, sickness," +
-                            " prescription, ID)" +
+                            " prescription, id)" +
                             " VALUES (?, ?, ?, ?, ?, ?, ?)");
                     for (Visit v: Hospital.getVisits()) {
                         visitPS.setString(1, v.getPatientNationalID());
@@ -190,9 +202,8 @@ public class Database {
                         visitPS.executeUpdate();
                     }
 
-                } catch (SQLException e) {
+                } catch (SQLException | ClassNotFoundException e) {
                     System.out.println(e.getMessage());
                 }
-
     }
 }

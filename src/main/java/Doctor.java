@@ -1,5 +1,4 @@
 public class Doctor extends Personnel {
-    //    Put toString(using Alt+Ins)
     private String Expertise;
     private String password;
 
