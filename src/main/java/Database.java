@@ -7,15 +7,11 @@ public class Database {
     public static void read() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            url = "jdbc:mysql://127.0.0.1:3306/Hospital";
+            url = "jdbc:mysql://127.0.0.1:3306/information";
 
             Connection conn = DriverManager.getConnection(url, user, password);
             Statement stmt = conn.createStatement();
             ResultSet patientRS = stmt.executeQuery("SELECT * FROM patient");
-            ResultSet doctorRS = stmt.executeQuery("SELECT * FROM doctor");
-            ResultSet nurseRS = stmt.executeQuery("SELECT * FROM nurse");
-            ResultSet serviceMenRS = stmt.executeQuery("SELECT * FROM servicemen");
-            ResultSet visitRS = stmt.executeQuery("SELECT * FROM visit");
 
             while (patientRS.next()) {
                 String firstName = patientRS.getString("firstName");
@@ -29,6 +25,9 @@ public class Database {
                 patient.setId(id);
                 Hospital.plus(patient);
             }
+            patientRS.close();
+
+            ResultSet doctorRS = stmt.executeQuery("SELECT * FROM doctor");
             while (doctorRS.next()) {
                 String firstName = doctorRS.getString("firstName");
                 String lastName = doctorRS.getString("lastName");
@@ -46,6 +45,9 @@ public class Database {
                 doctor.setId(id);
                 Hospital.plus(doctor);
             }
+            doctorRS.close();
+
+            ResultSet nurseRS = stmt.executeQuery("SELECT * FROM nurse");
             while (nurseRS.next()) {
                 String firstName = nurseRS.getString("firstName");
                 String lastName = nurseRS.getString("lastName");
@@ -62,6 +64,9 @@ public class Database {
                 nurse.setId(id);
                 Hospital.plus(nurse);
             }
+            nurseRS.close();
+
+            ResultSet serviceMenRS = stmt.executeQuery("SELECT * FROM servicemen");
             while (serviceMenRS.next()) {
                 String firstName = serviceMenRS.getString("firstName");
                 String lastName = serviceMenRS.getString("lastName");
@@ -77,6 +82,9 @@ public class Database {
                 serviceMen.setId(id);
                 Hospital.plus(serviceMen);
             }
+            serviceMenRS.close();
+
+            ResultSet visitRS = stmt.executeQuery("SELECT * FROM visit");
             while (visitRS.next()) {
                 String patientNationalID = visitRS.getString("patientNationalID");
                 String doctorNationalID = visitRS.getString("doctorNationalID");
@@ -91,15 +99,16 @@ public class Database {
                 visit.setId(id);
                 Hospital.plus(visit);
             }
+            visitRS.close();
             conn.close();
 
         } catch (SQLException | ClassNotFoundException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
 
     }
     public static void write(){
-                url = "jdbc:mysql://127.0.0.1:3306/Hospital?useSSL=false";
+                url = "jdbc:mysql://127.0.0.1:3306/information?useSSL=false";
 
                 // Create a connection to the MySQL database
                 try {
