@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Hospital {
-    private static String ownerPassword = "1234";
+    private static String ownerPassword = "";
     private static ArrayList<Patient> patients = new ArrayList<>();
     private static ArrayList<ServiceMen> serviceMens = new ArrayList<>();
     private static ArrayList<Doctor> doctors = new ArrayList<>();
